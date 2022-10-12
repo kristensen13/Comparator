@@ -51,7 +51,7 @@ class SupersController extends Controller
 
             //------------------------COALIMAR---------------------------------------
 
-            $url0 = "https://www.coalimaronline.com/api/Articulo/PorCodigoBarras/$code.";
+            $url0 = "URL COALIMAR";
 
             $datos0 = $this->file_get_contents_curl($url0);
             //dd($datos0);
@@ -77,7 +77,7 @@ class SupersController extends Controller
 
                         $id = $json0[0]->Id;
 
-                        $foto = "https://www.coalimaronline.com/api/FotoDeProducto/PequePrincipalPorIdArticulo/$id";
+                        $foto = "URL COALIMAR";
 
                         $dataImg = $this->file_get_contents_curl($foto);
                         $jsonFoto = json_decode($dataImg);
@@ -92,8 +92,8 @@ class SupersController extends Controller
 
                         $resJsonCoal = [
                             "nombre_tienda" => "COALIMAR",
-                            "link" => "https://www.coalimaronline.com/producto?articulo=" . $json0[0]->Id,
-                            "imagen" => "https://www.coalimaronline.com/assets/fotosArticulos/" . $nombreArchivo,
+                            "link" => "URL COALIMAR" . $json0[0]->Id,
+                            "imagen" => "URL COALIMAR" . $nombreArchivo,
                             "nombre_producto" => $json0[0]->Nombre,
                             "precio" => number_format($json0[0]->Pvp, 2) . " €"
                         ];
