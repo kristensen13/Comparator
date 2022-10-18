@@ -45,110 +45,11 @@
 @endsection
 
 
-{{-- ------------------Ingredientes y Alérgenos---------------------------------- --}}
 
-@section('ingredientes')
-
-<div class="card h-100 shadow">
-
-  <h4 class="card-header">Ingredientes</h4>
-
-  <div class="card-body">
-
-    <p class="card-text text-capitalize">{{ $infoNutri->info_nutri->ingredientes }}</p>
-
-  </div>
-
-</div>
-
-@endsection
-
-@section('alergenos')
-
-<div class="card h-100 shadow">
-
-  <h4 class="card-header">Alérgenos</h4>
-
-  <div class="card-body">
-
-    <p class="card-text text-capitalize">{{ $infoNutri->info_nutri->alergenos }}</p>
-
-  </div>
-
-</div>
-
-@endsection
-
-
-{{-- ----------------Info Nutricional----------------------------- --}}
-
-@section('nutri')
-
-<thead style="background-color: #df612f">
-
-  <tr>
-
-    <th scope='col' class='text-white text-center'>Información Nutricional</th>
-
-    <th scope='col' class='text-white text-center'>Por cada 100 g/100 ml</th>
-
-  </tr>
-
-</thead>
-
-<tbody>
-
-  <tr>
-
-    <td>Energía(kcal)</td>
-
-    <td class='text-center'>{{ $infoNutri->info_nutri->energia_kcal_100g}} {{ $infoNutri->info_nutri->energia_kcal_unit }}</td>
-
-  </tr>
-
-  <tr>
-
-    <td>Energía</td>
-
-    <td class='text-center' colspan='2'>{{ $infoNutri->info_nutri->energia_100g }} {{ $infoNutri->info_nutri->energia_unit }}</td>
-
-  </tr>
-
-  <tr>
-
-    <td>Grasas<br> - Grasas Saturadas</td>
-
-    <td class='text-center'>{{ $infoNutri->info_nutri->grasas_100g }} {{ $infoNutri->info_nutri->grasas_unit }}<br> {{ $infoNutri->info_nutri->grasas_saturadas_100g }} {{ $infoNutri->info_nutri->grasas_saturadas_unit }}</td>
-
-  </tr>
-
-  <tr>
-
-    <td>Hidratos de carbono<br> - Azúcares</td>
-
-    <td class='text-center'>{{ $infoNutri->info_nutri->hidratos_carbono_100g }} {{ $infoNutri->info_nutri->hidratos_carbono_unit }}<br> {{ $infoNutri->info_nutri->azucares_100g }} {{ $infoNutri->info_nutri->azucares_unit }}</td>
-
-  </tr>
-
-  <tr>
-
-    <td>Proteínas</td>
-
-    <td class='text-center' colspan='2'>{{ $infoNutri->info_nutri->proteinas_100g }} {{ $infoNutri->info_nutri->proteinas_unit }}</td>
-
-  </tr>
-
-  <tr>
-
-    <td>Sal<br> - Sodio</td>
-
-    <td class='text-center' colspan='2'>{{ $infoNutri->info_nutri->sal_100g }} {{ $infoNutri->info_nutri->sal_unit }}<br> {{ $infoNutri->info_nutri->sodio_100g }} {{ $infoNutri->info_nutri->sodio_unit }}</td>
-
-  </tr>
 
 </tbody>
 
-@endsection
+
 
 
 

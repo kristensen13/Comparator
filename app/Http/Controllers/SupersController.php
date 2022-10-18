@@ -51,7 +51,7 @@ class SupersController extends Controller
 
             //------------------------COALIMAR---------------------------------------
 
-            $url0 = "URL COALIMAR";
+            $url0 = "https://www.coalimaronline.com/api/Articulo/PorCodigoBarras/$code.";
 
             $datos0 = $this->file_get_contents_curl($url0);
             //dd($datos0);
@@ -77,7 +77,7 @@ class SupersController extends Controller
 
                         $id = $json0[0]->Id;
 
-                        $foto = "URL COALIMAR";
+                        $foto = "https://www.coalimaronline.com/api/FotoDeProducto/PequePrincipalPorIdArticulo/$id";
 
                         $dataImg = $this->file_get_contents_curl($foto);
                         $jsonFoto = json_decode($dataImg);
@@ -92,8 +92,8 @@ class SupersController extends Controller
 
                         $resJsonCoal = [
                             "nombre_tienda" => "COALIMAR",
-                            "link" => "URL COALIMAR" . $json0[0]->Id,
-                            "imagen" => "URL COALIMAR" . $nombreArchivo,
+                            "link" => "https://www.coalimaronline.com/producto?articulo=" . $json0[0]->Id,
+                            "imagen" => "https://www.coalimaronline.com/assets/fotosArticulos/" . $nombreArchivo,
                             "nombre_producto" => $json0[0]->Nombre,
                             "precio" => number_format($json0[0]->Pvp, 2) . " €"
                         ];
@@ -492,417 +492,6 @@ class SupersController extends Controller
 
 
 
-            //------------------------INFORMACIÓN NUTRICIONAL-------------------------------
-
-            $url4 = "https://world.openfoodfacts.org/api/v0/product/$code";
-
-            $datos4 = $this->file_get_contents_curl($url4);
-
-            $json4 = json_decode($datos4);
-
-            if (isset($json4)) {
-
-                $valido4 = $json4->status;
-
-                if ($valido4 == "0") {
-
-                    $energiaK = "---";
-
-                    $energiaKUnit = "---";
-
-                    $energia = "---";
-
-                    $energiaUnit = "---";
-
-                    $grasas = "---";
-
-                    $grasasUnit = "---";
-
-                    $grasasSat = "---";
-
-                    $grasasSatUnit = "---";
-
-                    $carHid = "---";
-
-                    $carHidUnit = "---";
-
-                    $azucares = "---";
-
-                    $azucaresUnit = "---";
-
-                    $proteinas = "---";
-
-                    $proteinasUnit = "---";
-
-                    $sal = "---";
-
-                    $salUnit = "---";
-
-                    $sodio = "---";
-
-                    $sodioUnit = "---";
-
-                    $codeProdNutri = $json4->code;
-
-                    $ingredientes = "No Info";
-
-                    $alergenos = "No Info";
-
-                    $resJsonInfoNutri = [
-                        "ingredientes" => $ingredientes,
-                        "alergenos" => $alergenos,
-                        "energia_kcal_100g" => $energiaK,
-                        "energia_kcal_unit" => "$energiaKUnit",
-                        "energia_100g" => $energia,
-                        "energia_unit" => "$energiaUnit",
-                        "grasas_100g" => $grasas,
-                        "grasas_unit" => "$grasasUnit",
-                        "grasas_saturadas_100g" => $grasasSat,
-                        "grasas_saturadas_unit" => "$grasasSatUnit",
-                        "hidratos_carbono_100g" => $carHid,
-                        "hidratos_carbono_unit" => "$carHidUnit",
-                        "azucares_100g" => $azucares,
-                        "azucares_unit" => "$azucaresUnit",
-                        "proteinas_100g" => $proteinas,
-                        "proteinas_unit" => "$proteinasUnit",
-                        "sal_100g" => $sal,
-                        "sal_unit" => "$salUnit",
-                        "sodio_100g" => $sodio,
-                        "sodio_unit" => "$sodioUnit"
-                    ];
-                } else {
-
-                    $eneKcal = "energy-kcal_100g";
-
-                    $eneKcalUnit = "energy-kcal_unit";
-
-                    $satFat = "saturated-fat_100g";
-
-                    $satFatUnit = "saturated-fat_unit";
-
-                    if (isset($json4->product->nutriments->$eneKcal)) {
-
-                        $energiaK = $json4->product->nutriments->$eneKcal;
-
-                        $energiaKUnit = $json4->product->nutriments->$eneKcalUnit;
-
-                        if ($energiaK == "") {
-
-                            $energiaK = "---";
-
-                            $energiaKUnit = "---";
-                        }
-                    } else {
-
-                        $energiaK = "---";
-
-                        $energiaKUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->energy_100g)) {
-
-                        $energia = $json4->product->nutriments->energy_100g;
-
-                        $energiaUnit = $json4->product->nutriments->energy_unit;
-
-                        if ($energia == "") {
-
-                            $energia = "---";
-
-                            $energiaUnit = "---";
-                        }
-                    } else {
-
-                        $energia = "---";
-
-                        $energiaUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->fat_100g)) {
-
-                        $grasas = $json4->product->nutriments->fat_100g;
-
-                        //dd($grasas);
-
-                        $grasas = number_format($grasas, 2);
-
-                        $grasasUnit = $json4->product->nutriments->fat_unit;
-
-                        if ($grasas == "") {
-
-                            $grasas = "---";
-
-                            $grasasUnit = "---";
-                        }
-                    } else {
-
-                        $grasas = "---";
-
-                        $grasasUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->$satFat)) {
-
-                        $grasasSat = $json4->product->nutriments->$satFat;
-
-                        $grasasSat = number_format($grasasSat, 2);
-
-                        $grasasSatUnit = $json4->product->nutriments->$satFatUnit;
-
-                        if ($grasasSat == "") {
-
-                            $grasasSat = "---";
-
-                            $grasasSatUnit = "---";
-                        }
-                    } else {
-
-                        $grasasSat = "---";
-
-                        $grasasSatUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->carbohydrates_100g)) {
-
-                        $carHid = $json4->product->nutriments->carbohydrates_100g;
-
-                        $carHid = number_format($carHid, 2);
-
-                        $carHidUnit = $json4->product->nutriments->carbohydrates_unit;
-
-                        if ($carHid == "") {
-
-                            $carHid = "---";
-
-                            $carHidUnit = "---";
-                        }
-                    } else {
-
-                        $carHid = "---";
-
-                        $carHidUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->sugars_100g)) {
-
-                        $azucares = $json4->product->nutriments->sugars_100g;
-
-                        $azucares = number_format($azucares, 2);
-
-                        $azucaresUnit = $json4->product->nutriments->sugars_unit;
-
-                        if ($azucares == "") {
-
-                            $azucares = "---";
-
-                            $azucaresUnit = "---";
-                        }
-                    } else {
-
-                        $azucares = "---";
-
-                        $azucaresUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->proteins_100g)) {
-
-                        $proteinas = $json4->product->nutriments->proteins_100g;
-
-                        $proteinas = number_format($proteinas, 2);
-
-                        $proteinasUnit = $json4->product->nutriments->proteins_unit;
-
-                        if ($proteinas == "") {
-
-                            $proteinas = "---";
-
-                            $proteinasUnit = "---";
-                        }
-                    } else {
-
-                        $proteinas = "---";
-
-                        $proteinasUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->salt_100g)) {
-
-                        $sal = $json4->product->nutriments->salt_100g;
-
-                        $sal = number_format($sal, 2);
-
-                        $salUnit = $json4->product->nutriments->salt_unit;
-
-                        if ($sal == "") {
-
-                            $sal = "---";
-
-                            $salUnit = "---";
-                        }
-                    } else {
-
-                        $sal = "---";
-
-                        $salUnit = "---";
-                    }
-
-
-
-                    if (isset($json4->product->nutriments->sodium_100g)) {
-
-                        $sodio = $json4->product->nutriments->sodium_100g;
-
-                        $sodio = number_format($sodio, 2);
-
-                        $sodioUnit = $json4->product->nutriments->sodium_unit;
-
-                        if ($sodio == "") {
-
-                            $sodio = "---";
-
-                            $sodioUnit = "---";
-                        }
-                    } else {
-
-                        $sodio = "---";
-
-                        $sodioUnit = "---";
-                    }
-
-                    //--------------------------INGREDIENTES/ALÉRGENOS-----------------------------
-
-                    $codeProdNutri = $json4->code;
-
-                    if (isset($json4->product->ingredients_text_es)) {
-
-                        $ingredientes = $json4->product->ingredients_text_es;
-
-                        if ($ingredientes == "") {
-
-                            $ingredientes = "No Info";
-                        }
-                    } else {
-
-                        $ingredientes = "No Info";
-                    }
-
-                    if (isset($json4->product->allergens)) {
-
-                        $alergenos = $json4->product->allergens;
-
-                        if ($alergenos == "") {
-
-                            $alergenos = "No Info";
-                        }
-                    } else {
-
-                        $alergenos = "No Info";
-                    }
-
-                    $resJsonInfoNutri = [
-                        "ingredientes" => $ingredientes,
-                        "alergenos" => $alergenos,
-                        "energia_kcal_100g" => $energiaK,
-                        "energia_kcal_unit" => "$energiaKUnit",
-                        "energia_100g" => $energia,
-                        "energia_unit" => "$energiaUnit",
-                        "grasas_100g" => $grasas,
-                        "grasas_unit" => "$grasasUnit",
-                        "grasas_saturadas_100g" => $grasasSat,
-                        "grasas_saturadas_unit" => "$grasasSatUnit",
-                        "hidratos_carbono_100g" => $carHid,
-                        "hidratos_carbono_unit" => "$carHidUnit",
-                        "azucares_100g" => $azucares,
-                        "azucares_unit" => "$azucaresUnit",
-                        "proteinas_100g" => $proteinas,
-                        "proteinas_unit" => "$proteinasUnit",
-                        "sal_100g" => $sal,
-                        "sal_unit" => "$salUnit",
-                        "sodio_100g" => $sodio,
-                        "sodio_unit" => "$sodioUnit"
-                    ];
-                }
-            } else {
-
-                $energiaK = "---";
-
-                $energiaKUnit = "---";
-
-                $energia = "---";
-
-                $energiaUnit = "---";
-
-                $grasas = "---";
-
-                $grasasUnit = "---";
-
-                $grasasSat = "---";
-
-                $grasasSatUnit = "---";
-
-                $carHid = "---";
-
-                $carHidUnit = "---";
-
-                $azucares = "---";
-
-                $azucaresUnit = "---";
-
-                $proteinas = "---";
-
-                $proteinasUnit = "---";
-
-                $sal = "---";
-
-                $salUnit = "---";
-
-                $sodio = "---";
-
-                $sodioUnit = "---";
-
-                $codeProdNutri = $json4->code;
-
-                $ingredientes = "No Info";
-
-                $alergenos = "No Info";
-
-                $resJsonInfoNutri = [
-                    "ingredientes" => $ingredientes,
-                    "alergenos" => $alergenos,
-                    "energia_kcal_100g" => $energiaK,
-                    "energia_kcal_unit" => "$energiaKUnit",
-                    "energia_100g" => $energia,
-                    "energia_unit" => "$energiaUnit",
-                    "grasas_100g" => $grasas,
-                    "grasas_unit" => "$grasasUnit",
-                    "grasas_saturadas_100g" => $grasasSat,
-                    "grasas_saturadas_unit" => "$grasasSatUnit",
-                    "hidratos_carbono_100g" => $carHid,
-                    "hidratos_carbono_unit" => "$carHidUnit",
-                    "azucares_100g" => $azucares,
-                    "azucares_unit" => "$azucaresUnit",
-                    "proteinas_100g" => $proteinas,
-                    "proteinas_unit" => "$proteinasUnit",
-                    "sal_100g" => $sal,
-                    "sal_unit" => "$salUnit",
-                    "sodio_100g" => $sodio,
-                    "sodio_unit" => "$sodioUnit"
-                ];
-            }
 
             //-------------------------------------------------------------------------------------
 
@@ -933,17 +522,16 @@ class SupersController extends Controller
             array_sort_by($precio, 'precio', $order = SORT_NUMERIC, SORT_ASC);
 
             $prec = ["tiendas" => $precio];
-            $infoNutri = ["info_nutri" => $resJsonInfoNutri];
+
 
             $val = json_encode($prec, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             $val = json_decode($val);
 
-            $infoNutri = json_encode($infoNutri, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-            $infoNutri = json_decode($infoNutri);
+
 
             //-------------------------------------------------------------------------------------
 
-            return view('search', compact('val', 'infoNutri', 'code'));
+            return view('search', compact('val', 'code'));
 
         endif;
     }

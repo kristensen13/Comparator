@@ -69,19 +69,7 @@
 
 			</div>
 
-			<div class="d-none d-md-block col-md-1">
 
-				<span type="button" class="badge rounded-pill bg-light text-reset shadow" data-bs-container="body" data-bs-toggle="popover"
-
-				title="URL API" data-bs-placement="left" data-content="Por medio de la siguiente URL, se pueden obtener los datos solicitados en formato json:
-
-				https://www.cmgsl.com/api/public/api/json?codigo=[C&#211;DIGO EAN]">
-
-					Api Info
-
-				</span>
-
-			</div>
 
 
 
